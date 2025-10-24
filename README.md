@@ -1,4 +1,4 @@
-# 船舶位置预测系统 - 时序预测框架
+# 时序数据预测之船舶位置预测 
 
 ## 📋 项目简介
 
@@ -500,7 +500,7 @@ sudo yum install wqy-microhei-fonts
 
 ## 👥 作者
 
-- 项目开发：AI Assistant
+- 项目开发：Chuanguang Zhu
 - 技术支持：欢迎提交Issue
 
 ---
@@ -520,8 +520,8 @@ sudo yum install wqy-microhei-fonts
 
 如有问题或建议，请通过以下方式联系：
 
-- 提交Issue: [GitHub Issues](https://github.com/yourusername/time_series_prediction/issues)
-- 邮件: your.email@example.com
+- 提交Issue: [GitHub Issues](https://github.com/ZGuangJie/time_series_prediction/issues)
+- 邮件: Guangjie98@outlook.com
 
 ---
 
