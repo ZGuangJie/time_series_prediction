@@ -96,7 +96,7 @@ def generate_ship_trajectory(
     df['timestamp'] = pd.date_range(
         start='2025-01-01 00:00:00',
         periods=num_samples,
-        freq='10T'  # 10分钟间隔
+        freq='10min'  # 10分钟间隔
     )
     
     return df

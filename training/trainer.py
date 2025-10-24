@@ -345,7 +345,7 @@ class Trainer:
                 break
             
             # 定期保存
-            save_every_n = self.config.get('logging', {}).get('save_every_n_epochs', 5)
+            save_every_n = self.config.get('logging', {}).get('save_every_n_epochs', 10)
             if (epoch + 1) % save_every_n == 0:
                 self.save_checkpoint(f'epoch_{epoch+1}')
         
