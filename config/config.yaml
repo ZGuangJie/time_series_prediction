@@ -1,0 +1,101 @@
+# 船舶位置预测配置文件
+
+# 数据配置
+data:
+  raw_data_path: "data/raw/ship_data.csv"
+  processed_data_path: "data/processed/"
+  train_ratio: 0.7
+  val_ratio: 0.2
+  test_ratio: 0.1
+  # 时序窗口配置
+  lookback_window: 6  # 回顾窗口：过去6个时间步
+  prediction_window: 3  # 预测窗口：未来3个时间步
+  # 特征列
+  input_features: ["longitude", "latitude", "speed", "course"]
+  target_features: ["longitude", "latitude"]
+  
+# 数据预处理配置
+preprocessing:
+  # 异常值处理
+  anomaly_detection:
+    max_speed: 30.0  # 最大航速（节）
+    max_latitude: 90.0
+    min_latitude: -90.0
+    max_longitude: 180.0
+    min_longitude: -180.0
+  # 标准化方法：zscore, minmax, revIN
+  normalization: "zscore"
+  # 缺失值填充方法：forward, interpolate
+  missing_value_strategy: "interpolate"
+  
+# 模型配置
+model:
+  # 模型类型：LSTM, Transformer, GRU
+  model_type: "LSTM"
+  # LSTM配置
+  lstm:
+    hidden_size: 64
+    num_layers: 2
+    dropout: 0.2
+    bidirectional: false
+  # Transformer配置
+  transformer:
+    d_model: 64
+    nhead: 4
+    num_layers: 2
+    dim_feedforward: 256
+    dropout: 0.2
+  # 输入输出维度
+  input_dim: 4  # 经度、纬度、航速、航向
+  output_dim: 2  # 预测经度、纬度
+  
+# 训练配置
+training:
+  # 基础配置
+  batch_size: 64
+  num_epochs: 100
+  learning_rate: 0.001
+  weight_decay: 0.001  # L2正则化
+  # 设备配置
+  device: "cuda"  # cuda或cpu
+  num_workers: 4
+  # 优化器：adam, adamw, sgd
+  optimizer: "adam"
+  # 学习率调度器
+  scheduler:
+    type: "ReduceLROnPlateau"  # StepLR, ReduceLROnPlateau, CosineAnnealingLR
+    patience: 10
+    factor: 0.5
+  # 早停配置
+  early_stopping:
+    patience: 20
+    min_delta: 0.0001
+  # 损失函数：mse, mae, huber, weighted_mse
+  loss_function: "weighted_mse"
+  # 权重MSE的时间步权重（近期权重更高）
+  time_step_weights: [1.0, 0.8, 0.6]
+  
+# 评估配置
+evaluation:
+  metrics: ["mae", "rmse", "mape"]
+  # 鲁棒性测试
+  robustness_test:
+    enabled: true
+    noise_level: 0.5  # 航速噪声±0.5节
+    
+# 预测配置
+prediction:
+  # 模型路径
+  model_path: "checkpoints/best_model.pth"
+  # 结果保存路径
+  output_path: "results/predictions.csv"
+  # 是否进行物理规则修正
+  physical_correction: true
+  
+# 日志配置
+logging:
+  log_dir: "logs/"
+  tensorboard_dir: "runs/"
+  checkpoint_dir: "checkpoints/"
+  save_every_n_epochs: 5
+
