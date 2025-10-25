@@ -23,8 +23,9 @@ def setup_chinese_font():
     elif system == 'Darwin':  # macOS
         matplotlib.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'STHeiti', 'STSong']
     else:  # Linux
-        matplotlib.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei', 'WenQuanYi Zen Hei', 'Droid Sans Fallback']
-    
+        # matplotlib.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei', 'WenQuanYi Zen Hei', 'Droid Sans Fallback']
+        plt.rcParams['font.sans-serif'] = ['WenQuanYi Zen Hei', 'SimHei', 'DejaVu Sans']
+
     # 解决负号'-'显示为方块的问题
     matplotlib.rcParams['axes.unicode_minus'] = False
 
